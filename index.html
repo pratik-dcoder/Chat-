@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Chat - Messaging App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #f0f2f5;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 30%;
+            background-color: white;
+            border-right: 1px solid #e9edef;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: #f0f2f5;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #dfe5e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #54656f;
+            font-weight: bold;
+        }
+        
+        .icons {
+            display: flex;
+            gap: 20px;
+            color: #54656f;
+        }
+        
+        .search {
+            padding: 10px;
+            background-color: white;
+        }
+        
+        .search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            background-color: #f0f2f5;
+            border-radius: 8px;
+            outline: none;
+        }
+        
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .chat-item {
+            display: flex;
+            padding: 12px;
+            border-bottom: 1px solid #e9edef;
+            cursor: pointer;
+        }
+        
+        .chat-item:hover {
+            background-color: #f5f6f6;
+        }
+        
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #dfe5e7;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #54656f;
+            font-weight: bold;
+        }
+        
+        .chat-info {
+            flex: 1;
+        }
+        
+        .chat-name-time {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        .chat-name {
+            font-weight: 500;
+        }
+        
+        .chat-time {
+            font-size: 12px;
+            color: #667781;
+        }
+        
+        .chat-preview {
+            font-size: 14px;
+            color: #667781;
+            display: flex;
+        }
+        
+        .chat-message {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+        
+        /* Main Chat Area */
+        .main-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #e5ddd6;
+            background-image: url('https://web.whatsapp.com/img/bg-chat-tile-light_a4be512e7195b6b733d9110b408f075d.png');
+        }
+        
+        .chat-header {
+            background-color: #f0f2f5;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            border-left: 1px solid #e9edef;
+        }
+        
+        .chat-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            max-width: 60%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .received {
+            background-color: white;
+            align-self: flex-start;
+            border-top-left-radius: 0;
+        }
+        
+        .sent {
+            background-color: #d9fdd3;
+            align-self: flex-end;
+            border-top-right-radius: 0;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: #667781;
+            text-align: right;
+            margin-top: 4px;
+        }
+        
+        .chat-input {
+            background-color: #f0f2f5;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+        
+        .send-button {
+            background-color: #00a884;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar with chat list -->
+    <div class="sidebar">
+        <div class="header">
+            <div class="user-avatar">U</div>
+            <div class="icons">
+                <span>📷</span>
+                <span>💬</span>
+                <span>⋮</span>
+            </div>
+        </div>
+        
+        <div class="search">
+            <input type="text" placeholder="Search or start new chat">
+        </div>
+        
+        <div class="chat-list">
+            <!-- Chat item 1 -->
+            <div class="chat-item">
+                <div class="chat-avatar">JD</div>
+                <div class="chat-info">
+                    <div class="chat-name-time">
+                        <span class="chat-name">John Doe</span>
+                        <span class="chat-time">12:30 PM</span>
+                    </div>
+                    <div class="chat-preview">
+                        <span class="chat-message">Hey, how are you doing?</span>
+                        <span>✓✓</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat item 2 -->
+            <div class="chat-item">
+                <div class="chat-avatar">AS</div>
+                <div class="chat-info">
+                    <div class="chat-name-time">
+                        <span class="chat-name">Alice Smith</span>
+                        <span class="chat-time">10:15 AM</span>
+                    </div>
+                    <div class="chat-preview">
+                        <span class="chat-message">Meeting at 2pm tomorrow</span>
+                        <span>✓✓</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat item 3 -->
+            <div class="chat-item">
+                <div class="chat-avatar">TJ</div>
+                <div class="chat-info">
+                    <div class="chat-name-time">
+                        <span class="chat-name">Team Jira</span>
+                        <span class="chat-time">Yesterday</span>
+                    </div>
+                    <div class="chat-preview">
+                        <span class="chat-message">Bob: I've updated the ticket</span>
+                        <span>✓</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main chat area -->
+    <div class="main-chat">
+        <div class="chat-header">
+            <div class="chat-avatar" style="margin-right: 12px;">JD</div>
+            <div>
+                <div class="chat-name">John Doe</div>
+                <div style="font-size: 12px; color: #667781;">Online</div>
+            </div>
+        </div>
+        
+        <div class="chat-content">
+            <!-- Received message -->
+            <div class="message received">
+                Hey there! How are you?
+                <div class="message-time">12:30 PM</div>
+            </div>
+            
+            <!-- Sent message -->
+            <div class="message sent">
+                I'm doing great! Just working on this new project.
+                <div class="message-time">12:32 PM</div>
+            </div>
+            
+            <!-- Received message -->
+            <div class="message received">
+                That sounds interesting. What's it about?
+                <div class="message-time">12:33 PM</div>
+            </div>
+            
+            <!-- Sent message -->
+            <div class="message sent">
+                It's a messaging app called "Chat Chat" - like WhatsApp but simpler.
+                <div class="message-time">12:35 PM</div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <span>😊</span>
+            <span>📎</span>
+            <input type="text" placeholder="Type a message">
+            <button class="send-button">➤</button>
+        </div>
+    </div>
+</body>
+  </html>
