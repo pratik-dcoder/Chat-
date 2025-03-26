@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnChat | Next-Gen Messaging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --text: #636e72;
+            --text-light: #b2bec3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        /* App container */
+        .app-container {
+            width: 95%;
+            max-width: 1400px;
+            height: 90vh;
+            margin: auto;
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+        
+        /* Left panel - Channels */
+        .channels-panel {
+            width: 100px;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo i {
+            color: var(--primary);
+        }
+        
+        .channel-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .channel-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .channel-icon:hover, .channel-icon.active {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Contacts panel */
+        .contacts-panel {
+            width: 300px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #eee;
+        }
+        
+        .search-bar {
+            padding: 20px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 30px;
+            border: none;
+            background: var(--light);
+            font-size: 14px;
+            color: var(--text);
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 35px;
+            top: 32px;
+            color: var(--text-light);
+        }
+        
+        .contacts-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .contacts-header h3 {
+            font-size: 16px;
+            color: var(--text);
+        }
+        
+        .contacts-header i {
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        .contacts-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .contact-card {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid #f8f8f8;
+        }
+        
+        .contact-card:hover {
+            background: var(--light);
+        }
+        
+        .contact-card.active {
+            background: var(--primary);
+        }
+        
+        .contact-card.active .contact-name,
+        .contact-card.active .contact-last-msg,
+        .contact-card.active .contact-time {
+            color: white;
+        }
+        
+        .contact-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 15px;
+            position: relative;
+        }
+        
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            border: 2px solid white;
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 3px;
+        }
+        
+        .contact-last-msg {
+            font-size: 13px;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+        
+        .contact-time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        /* Chat area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f9fafc;
+        }
+        
+        .chat-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            background: white;
+        }
+        
+        .chat-user {
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        
+        .chat-user-info h4 {
+            font-size: 16px;
+            color: var(--dark);
+        }
+        
+        .chat-user-info p {
+            font-size: 13px;
+            color: var(--success);
+        }
+        
+        .chat-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .chat-actions i {
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+        
+        .chat-actions i:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .messages-container {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            background: url('https://transparenttextures.com/patterns/cubes.png');
+        }
+        
+        .message-date {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .message-date span {
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-light);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .message {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .message.received {
+            justify-content: flex-start;
+        }
+        
+        .message.sent {
+            justify-content: flex-end;
+        }
+        
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .message.sent .message-avatar {
+            display: none;
+        }
+        
+        .message-content {
+            max-width: 60%;
+        }
+        
+        .message-bubble {
+            padding: 12px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+        }
+        
+        .received .message-bubble {
+            background: white;
+            border-top-left-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sent .message-bubble {
+            background: var(--primary);
+            color: white;
+            border-top-right-radius: 5px;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 5px;
+            display: flex;
+        }
+        
+        .received .message-time {
+            justify-content: flex-start;
+            padding-left: 10px;
+        }
+        
+        .sent .message-time {
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .message-input-area {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .attachment-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            cursor: pointer;
+            margin-right: 15px;
+            transition: all 0.2s;
+        }
+        
+        .attachment-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .message-input {
+            flex: 1;
+            position: relative;
+        }
+        
+        .message-input input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            background: var(--light);
+            font-size: 14px;
+            color: var(--text);
+            padding-right: 50px;
+        }
+        
+        .emoji-btn {
+            position: absolute;
+            right: 15px;
+            top: 12px;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        /* Status indicator */
+        .typing-indicator {
+            display: flex;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            width: fit-content;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        .typing-indicator span {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-left: 8px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left panel - Channels -->
+        <div class="channels-panel">
+            <div class="logo">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            
+            <div class="channel-icons">
+                <div class="channel-icon active">
+                    <i class="fas fa-inbox"></i>
+                </div>
+                <div class="channel-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="channel-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="channel-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="channel-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Middle panel - Contacts -->
+        <div class="contacts-panel">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search messages or contacts...">
+            </div>
+            
+            <div class="contacts-header">
+                <h3>Recent Conversations</h3>
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+            
+            <div class="contacts-list">
+                <div class="contact-card active">
+                    <div class="contact-avatar">
+                        JD
+                        <div class="online-dot"></div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-name">John Doe</div>
+                        <div class="contact-last-msg">Hey, I've sent you the project files</div>
+                    </div>
+                    <div class="contact-time">12:30 PM</div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        AS
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-name">Alice Smith</div>
+                        <div class="contact-last-msg">Meeting tomorrow at 2pm</div>
+                    </div>
+                    <div class="contact-time">11:45 AM</div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        MJ
+                        <div class="online-dot"></div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-name">Mike Johnson</div>
+                        <div class="contact-last-msg">The design looks great!</div>
+                    </div>
+                    <div class="contact-time">10:20 AM</div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        SW
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-name">Sarah Williams</div>
+                        <div class="contact-last-msg">Thanks for your help with this</div>
+                    </div>
+                    <div class="contact-time">Yesterday</div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        DB
+                        <div class="online-dot"></div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-name">David Brown</div>
+                        <div class="contact-last-msg">Let me know when you're free</div>
+                    </div>
+                    <div class="contact-time">Yesterday</div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        EM
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-name">Emma Miller</div>
+                        <div class="contact-last-msg">Did you see the latest update?</div>
+                    </div>
+                    <div class="contact-time">Monday</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right panel - Chat area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="chat-user">
+                    <div class="chat-user-avatar">JD</div>
+                    <div class="chat-user-info">
+                        <h4>John Doe</h4>
+                        <p>Online</p>
+                    </div>
+                </div>
+                
+                <div class="chat-actions">
+                    <i class="fas fa-phone-alt"></i>
+                    <i class="fas fa-video"></i>
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+            
+            <div class="messages-container">
+                <div class="message-date">
+                    <span>Today</span>
+                </div>
+                
+                <div class="message received">
+                    <div class="message-avatar">JD</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            Hey there! How's the OnChat project coming along?
+                        </div>
+                        <div class="message-time">12:15 PM</div>
+                    </div>
+                </div>
+                
+                <div class="message sent">
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            It's going really well! Just finished the new UI design.
+                        </div>
+                        <div class="message-time">12:17 PM</div>
+                    </div>
+                </div>
+                
+                <div class="message received">
+                    <div class="message-avatar">JD</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            That's awesome! Can you share some screenshots?
+                        </div>
+                        <div class="message-time">12:18 PM</div>
+                    </div>
+                </div>
+                
+                <div class="message sent">
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            Sure thing! I'll send them over in a few minutes. Just need to polish a couple of things.
+                        </div>
+                        <div class="message-time">12:20 PM</div>
+                    </div>
+                </div>
+                
+                <div class
