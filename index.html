@@ -3,300 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chats - Messaging App</title>
+    <title>Digital Watch</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
             display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            background-color: #f5f5f5;
+            background-color: #121212;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
         }
         
-        .sidebar {
-            width: 300px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-            overflow-y: auto;
+        .watch {
+            background-color: #000;
+            color: #0f0;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            font-size: 3rem;
+            font-family: 'Courier New', monospace;
+            border: 2px solid #0f0;
         }
         
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #34495e;
-        }
-        
-        .search {
-            margin-bottom: 20px;
-        }
-        
-        .search input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background-color: #34495e;
-            color: white;
-        }
-        
-        .conversation-list {
-            list-style: none;
-        }
-        
-        .conversation {
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        
-        .conversation:hover {
-            background-color: #34495e;
-        }
-        
-        .conversation.active {
-            background-color: #3498db;
-        }
-        
-        .conversation-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #7f8c8d;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-        
-        .conversation-info {
-            flex-grow: 1;
-        }
-        
-        .conversation-name {
-            font-weight: bold;
-        }
-        
-        .conversation-preview {
-            font-size: 12px;
-            color: #bdc3c7;
-        }
-        
-        .chat-area {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .chat-header {
-            padding: 20px;
-            background-color: white;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            align-items: center;
-        }
-        
-        .chat-header-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #7f8c8d;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            font-size: 20px;
-        }
-        
-        .chat-header-info {
-            flex-grow: 1;
-        }
-        
-        .chat-header-name {
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        .chat-header-status {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        
-        .chat-messages {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background-color: #e5ddd5;
-            background-image: url('https://web.whatsapp.com/img/bg-chat-tile-light_a4be512e7195b6b733d9110b408f075d.png');
-        }
-        
-        .message {
-            margin-bottom: 15px;
-            max-width: 70%;
-        }
-        
-        .message.received {
-            align-self: flex-start;
-        }
-        
-        .message.sent {
-            align-self: flex-end;
-        }
-        
-        .message-content {
-            padding: 10px 15px;
-            border-radius: 7.5px;
-            margin-bottom: 5px;
-            position: relative;
-        }
-        
-        .message.received .message-content {
-            background-color: white;
-        }
-        
-        .message.sent .message-content {
-            background-color: #dcf8c6;
-        }
-        
-        .message-time {
-            font-size: 11px;
-            color: #7f8c8d;
-        }
-        
-        .message.sent .message-time {
-            text-align: right;
-        }
-        
-        .chat-input {
-            padding: 15px;
-            background-color: white;
-            display: flex;
-            align-items: center;
-        }
-        
-        .chat-input input {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border-radius: 20px;
-            border: 1px solid #e0e0e0;
-            outline: none;
-        }
-        
-        .chat-input button {
-            margin-left: 10px;
-            padding: 10px 15px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-        
-        .chat-input button:hover {
-            background-color: #2980b9;
+        .date {
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 10px;
+            color: #0f0;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="logo">Chats</div>
-        
-        <div class="search">
-            <input type="text" placeholder="Search conversations...">
-        </div>
-        
-        <ul class="conversation-list">
-            <li class="conversation active">
-                <div class="conversation-avatar">JD</div>
-                <div class="conversation-info">
-                    <div class="conversation-name">John Doe</div>
-                    <div class="conversation-preview">Hey, how are you doing?</div>
-                </div>
-            </li>
-            <li class="conversation">
-                <div class="conversation-avatar">AS</div>
-                <div class="conversation-info">
-                    <div class="conversation-name">Alice Smith</div>
-                    <div class="conversation-preview">Meeting at 3pm tomorrow</div>
-                </div>
-            </li>
-            <li class="conversation">
-                <div class="conversation-avatar">RJ</div>
-                <div class="conversation-info">
-                    <div class="conversation-name">Robert Johnson</div>
-                    <div class="conversation-preview">The project is due next week</div>
-                </div>
-            </li>
-            <li class="conversation">
-                <div class="conversation-avatar">MB</div>
-                <div class="conversation-info">
-                    <div class="conversation-name">Maria Brown</div>
-                    <div class="conversation-preview">Thanks for your help!</div>
-                </div>
-            </li>
-            <li class="conversation">
-                <div class="conversation-avatar">DW</div>
-                <div class="conversation-info">
-                    <div class="conversation-name">David Wilson</div>
-                    <div class="conversation-preview">Let me check and get back to you</div>
-                </div>
-            </li>
-        </ul>
+    <div class="watch-container">
+        <div class="watch" id="time">00:00:00</div>
+        <div class="date" id="date">Monday, January 1, 2000</div>
     </div>
-    
-    <div class="chat-area">
-        <div class="chat-header">
-            <div class="chat-header-avatar">JD</div>
-            <div class="chat-header-info">
-                <div class="chat-header-name">John Doe</div>
-                <div class="chat-header-status">Online</div>
-            </div>
-        </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            
+            // Get time components
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            // Format hours for 12-hour clock (optional)
+            // const ampm = hours >= 12 ? 'PM' : 'AM';
+            // hours = hours % 12;
+            // hours = hours ? hours : 12; // the hour '0' should be '12'
+            // hours = hours.toString().padStart(2, '0');
+            
+            // For 24-hour clock:
+            hours = hours.toString().padStart(2, '0');
+            
+            // Update time display
+            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+            // For 12-hour clock with AM/PM:
+            // document.getElementById('time').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            // Update date display
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString(undefined, options);
+        }
         
-        <div class="chat-messages">
-            <div class="message received">
-                <div class="message-content">Hey there! How are you doing?</div>
-                <div class="message-time">10:30 AM</div>
-            </div>
-            
-            <div class="message sent">
-                <div class="message-content">I'm doing great! Just working on some projects.</div>
-                <div class="message-time">10:32 AM</div>
-            </div>
-            
-            <div class="message received">
-                <div class="message-content">That sounds interesting. What kind of projects?</div>
-                <div class="message-time">10:33 AM</div>
-            </div>
-            
-            <div class="message sent">
-                <div class="message-content">Building a messaging app called "Chats" actually!</div>
-                <div class="message-time">10:35 AM</div>
-            </div>
-            
-            <div class="message received">
-                <div class="message-content">Wow, that's awesome! I'd love to see it when you're done.</div>
-                <div class="message-time">10:36 AM</div>
-            </div>
-        </div>
-        
-        <div class="chat-input">
-            <input type="text" placeholder="Type a message...">
-            <button>Send</button>
-        </div>
-    </div>
+        // Update time immediately and then every second
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
 </body>
 </html>
