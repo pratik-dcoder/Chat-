@@ -1,77 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Watch</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #121212;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-        }
-        
-        .watch {
-            background-color: #000;
-            color: #0f0;
-            padding: 20px 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-            font-size: 3rem;
-            font-family: 'Courier New', monospace;
-            border: 2px solid #0f0;
-        }
-        
-        .date {
-            font-size: 1rem;
-            text-align: center;
-            margin-top: 10px;
-            color: #0f0;
-            opacity: 0.8;
-        }
-    </style>
-</head>
-<body>
-    <div class="watch-container">
-        <div class="watch" id="time">00:00:00</div>
-        <div class="date" id="date">Monday, January 1, 2000</div>
-    </div>
+import subprocess
+import getpass
 
-    <script>
-        function updateTime() {
-            const now = new Date();
-            
-            // Get time components
-            let hours = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            
-            // Format hours for 12-hour clock (optional)
-            // const ampm = hours >= 12 ? 'PM' : 'AM';
-            // hours = hours % 12;
-            // hours = hours ? hours : 12; // the hour '0' should be '12'
-            // hours = hours.toString().padStart(2, '0');
-            
-            // For 24-hour clock:
-            hours = hours.toString().padStart(2, '0');
-            
-            // Update time display
-            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
-            // For 12-hour clock with AM/PM:
-            // document.getElementById('time').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
-            
-            // Update date display
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('date').textContent = now.toLocaleDateString(undefined, options);
-        }
-        
-        // Update time immediately and then every second
-        updateTime();
-        setInterval(updateTime, 1000);
-    </script>
-</body>
-</html>
+def ethical_remote_assistance():
+    print("""
+    ETHICAL REMOTE ACCESS TOOL
+    --------------------------
+    This requires EXPLICIT PERMISSION from the device owner.
+    Only use for legitimate purposes like technical support.
+    """)
+    
+    # Get confirmation
+    consent = input("Has the device owner given explicit permission? (yes/no): ")
+    if consent.lower() != 'yes':
+        print("Access aborted - permission not confirmed")
+        return
+    
+    # Method 1: Using built-in Windows Remote Assistance (Windows only)
+    try:
+        print("\nOption 1: Starting Windows Remote Assistance...")
+        subprocess.run(["msra", "/offerRA"], check=True)
+    except Exception as e:
+        print(f"Windows Remote Assistance not available: {e}")
+    
+    # Method 2: Suggest TeamViewer (would need to be pre-installed)
+    print("\nOption 2: For cross-platform access, use TeamViewer with the owner's ID and password")
+    
+    # Method 3: Chrome Remote Desktop (would need setup)
+    print("\nOption 3: For browser-based access, use Chrome Remote Desktop")
+
+if __name__ == "__main__":
+    ethical_remote_assistance()
