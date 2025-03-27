@@ -1,32 +1,249 @@
-import subprocess
-import getpass
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethical Hacker's Lab - Legal Practice Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Courier New', monospace;
+        }
+        .navbar {
+            background-color: #212529;
+        }
+        .challenge-card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .beginner {
+            border-left: 5px solid #28a745;
+        }
+        .intermediate {
+            border-left: 5px solid #fd7e14;
+        }
+        .advanced {
+            border-left: 5px solid #dc3545;
+        }
+        footer {
+            background-color: #212529;
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Ethical Hacker's Lab</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#challenges">Challenges</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#legal">Legal</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-def ethical_remote_assistance():
-    print("""
-    ETHICAL REMOTE ACCESS TOOL
-    --------------------------
-    This requires EXPLICIT PERMISSION from the device owner.
-    Only use for legitimate purposes like technical support.
-    """)
-    
-    # Get confirmation
-    consent = input("Has the device owner given explicit permission? (yes/no): ")
-    if consent.lower() != 'yes':
-        print("Access aborted - permission not confirmed")
-        return
-    
-    # Method 1: Using built-in Windows Remote Assistance (Windows only)
-    try:
-        print("\nOption 1: Starting Windows Remote Assistance...")
-        subprocess.run(["msra", "/offerRA"], check=True)
-    except Exception as e:
-        print(f"Windows Remote Assistance not available: {e}")
-    
-    # Method 2: Suggest TeamViewer (would need to be pre-installed)
-    print("\nOption 2: For cross-platform access, use TeamViewer with the owner's ID and password")
-    
-    # Method 3: Chrome Remote Desktop (would need setup)
-    print("\nOption 3: For browser-based access, use Chrome Remote Desktop")
+    <!-- Hero Section -->
+    <header class="bg-dark text-white py-5">
+        <div class="container text-center">
+            <h1 class="display-4">Practice Ethical Hacking Legally</h1>
+            <p class="lead">Sharpen your cybersecurity skills with our safe, legal challenges</p>
+            <a href="#challenges" class="btn btn-primary btn-lg mt-3">Start Learning</a>
+        </div>
+    </header>
 
-if __name__ == "__main__":
-    ethical_remote_assistance()
+    <!-- Challenges Section -->
+    <section id="challenges" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Capture The Flag Challenges</h2>
+            <div class="row">
+                <!-- Challenge 1 -->
+                <div class="col-md-4">
+                    <div class="card challenge-card beginner">
+                        <div class="card-body">
+                            <span class="badge bg-success mb-2">Beginner</span>
+                            <h5 class="card-title">Password Cracking</h5>
+                            <p class="card-text">Learn basic password security by cracking weak hashes (legal practice).</p>
+                            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#challenge1Modal">
+                                View Challenge
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Challenge 2 -->
+                <div class="col-md-4">
+                    <div class="card challenge-card intermediate">
+                        <div class="card-body">
+                            <span class="badge bg-warning text-dark mb-2">Intermediate</span>
+                            <h5 class="card-title">SQL Injection</h5>
+                            <p class="card-text">Practice SQL injection on our intentionally vulnerable test site.</p>
+                            <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#challenge2Modal">
+                                View Challenge
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Challenge 3 -->
+                <div class="col-md-4">
+                    <div class="card challenge-card advanced">
+                        <div class="card-body">
+                            <span class="badge bg-danger mb-2">Advanced</span>
+                            <h5 class="card-title">XSS Challenge</h5>
+                            <p class="card-text">Test your cross-site scripting skills in a controlled environment.</p>
+                            <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#challenge3Modal">
+                                View Challenge
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2>About Ethical Hacker's Lab</h2>
+                    <p>Our platform provides a legal environment for cybersecurity enthusiasts to practice ethical hacking techniques. All challenges are designed with security professionals in mind and should only be used for educational purposes.</p>
+                    <p>We follow strict ethical guidelines and comply with all relevant cybersecurity laws.</p>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://via.placeholder.com/600x400" alt="Ethical Hacking Illustration" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal Section -->
+    <section id="legal" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Legal Disclaimer</h2>
+            <div class="alert alert-warning">
+                <h4>Important Notice</h4>
+                <p>All content on this website is for educational purposes only. Unauthorized hacking is illegal. Only practice on systems you own or have explicit permission to test.</p>
+                <p>By using this site, you agree to our <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a> and acknowledge that these skills should only be used ethically.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p>&copy; 2023 Ethical Hacker's Lab. All rights reserved.</p>
+            <p class="text-muted">Designed for educational purposes only</p>
+        </div>
+    </footer>
+
+    <!-- Challenge Modals -->
+    <!-- Challenge 1 Modal -->
+    <div class="modal fade" id="challenge1Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Password Cracking Challenge</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Challenge Description:</h6>
+                    <p>Below are three password hashes. Your task is to crack them using ethical methods:</p>
+                    <pre>1. 5f4dcc3b5aa765d61d8327deb882cf99 (MD5)
+2. $2a$10$N9qo8uLOickgx2ZMRZoMy.Mrq4H3d7J8fM3jJYg6I9Z1Fp6Y0nXJK (bcrypt)
+3. e10adc3949ba59abbe56e057f20f883e (MD5)</pre>
+                    <div class="alert alert-info">
+                        <strong>Note:</strong> These are intentionally weak hashes for educational purposes only.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success">Submit Answer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenge 2 Modal -->
+    <div class="modal fade" id="challenge2Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">SQL Injection Challenge</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Challenge Description:</h6>
+                    <p>This simulated login form is vulnerable to SQL injection. Try to bypass authentication:</p>
+                    <form class="mb-4">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Enter username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <div class="alert alert-danger">
+                        <strong>Warning:</strong> Only attempt SQL injection on this practice form. Doing this on real websites without permission is illegal.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success">Request Hint</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Terms of Service</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Ethical Use Only</h6>
+                    <p>All skills learned on this platform must be used ethically and legally. Unauthorized access to computer systems is prohibited.</p>
+                    
+                    <h6>2. Responsible Disclosure</h6>
+                    <p>If you discover vulnerabilities in real systems, follow responsible disclosure practices.</p>
+                    
+                    <h6>3. Legal Compliance</h6>
+                    <p>Users must comply with all applicable laws including the Computer Fraud and Abuse Act.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+    </html>
