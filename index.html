@@ -9,6 +9,9 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
+            background-color: #f0f0f0;
+            background-size: cover;
+            background-position: center;
         }
         table {
             width: 80%;
@@ -34,6 +37,8 @@
     <input type="text" id="name" placeholder="Name">
     <input type="number" id="amount" placeholder="Amount">
     <button onclick="addRecord()">Add</button>
+    <button onclick="changeBackground()">Change Background Color</button>
+    <input type="file" id="bgUpload" accept="image/*" onchange="uploadBackground()">
     <table>
         <thead>
             <tr>
@@ -67,6 +72,20 @@
         function deleteRow(button) {
             const row = button.parentNode.parentNode;
             row.parentNode.removeChild(row);
+        }
+        function changeBackground() {
+            const colors = ["#f0f0f0", "#ffcccc", "#ccffcc", "#ccccff", "#ffffcc"];
+            document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        }
+        function uploadBackground() {
+            const file = document.getElementById("bgUpload").files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.body.style.backgroundImage = `url('${e.target.result}')`;
+                };
+                reader.readAsDataURL(file);
+            }
         }
     </script>
 </body>
