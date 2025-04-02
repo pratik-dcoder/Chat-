@@ -6,47 +6,93 @@
     <title>Monthly Fee Control</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             text-align: center;
+            background-color: #f4f4f4;
             margin: 20px;
         }
-        table {
+        .container {
             width: 80%;
             margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         th, td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        input, button {
             padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
         button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
             cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
         }
         .logo {
             width: 100px;
             margin-bottom: 20px;
         }
+        .input-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
-    <img src="logo.png" alt="Logo" class="logo">
-    <h2>Monthly Fee Control</h2>
-    <input type="text" id="name" placeholder="Name">
-    <input type="number" id="amount" placeholder="Amount">
-    <button onclick="addRecord()">Add</button>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Paid</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="recordTable">
-            <!-- Records will be inserted here -->
-        </tbody>
-    </table>
+    <div class="container">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h2>Monthly Fee Control</h2>
+        <div class="input-group">
+            <input type="text" id="name" placeholder="Name">
+            <input type="number" id="amount" placeholder="Amount">
+            <button onclick="addRecord()">Add</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Paid</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="recordTable">
+                <!-- Records will be inserted here -->
+            </tbody>
+        </table>
+    </div>
     <script>
         function addRecord() {
             const name = document.getElementById("name").value;
@@ -56,9 +102,9 @@
                 const row = table.insertRow();
                 row.innerHTML = `
                     <td>${name}</td>
-                    <td>${amount}</td>
+                    <td>$${amount}</td>
                     <td><input type='checkbox'></td>
-                    <td><button onclick='deleteRow(this)'>Delete</button></td>
+                    <td><button class='delete-btn' onclick='deleteRow(this)'>Delete</button></td>
                 `;
                 document.getElementById("name").value = "";
                 document.getElementById("amount").value = "";
