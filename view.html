@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mata Rani Darshan</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js"></script>
+</head>
+<body style="text-align:center;">
+  <h2>🙏 Mata Rani Darshan 🙏</h2>
+  <img id="photo" src="" width="300" />
+  <p>Jai Mata Di</p>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const storage = firebase.storage();
+
+  async function loadPhoto() {
+    const url = await storage.ref("latest.jpg").getDownloadURL();
+    document.getElementById("photo").src = url;
+  }
+
+  loadPhoto();
+</script>
+</body>
+</html>
