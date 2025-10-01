@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Mata Rani Photo</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js"></script>
+</head>
+<body style="text-align:center;">
+  <h2>Upload Mata Rani Photo</h2>
+  <input type="file" id="fileInput" />
+  <button onclick="uploadFile()">Upload</button>
+
+  <p id="status"></p>
+
+<script>
+  // 🔹 Replace this with your Firebase project config
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const storage = firebase.storage();
+
+  async function uploadFile() {
+    const file = document.getElementById("fileInput").files[0];
+    if (!file) return alert("Please select a file");
+
+    const storageRef = storage.ref("latest.jpg"); // overwrite old file
+    await storageRef.put(file);
+
+    document.getElementById("status").innerText = "✅ Photo uploaded successfully!";
+  }
+</script>
+</body>
+</html>
